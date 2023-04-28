@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Metamask Web3.js Example</title>
+</head>
+<body>
+    <h1>Metamask Web3.js Example</h1>
+    <button id="connectButton">Connect to Metamask</button>
+    <button id="getAccountButton">Get Account</button>
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+    <script>
+        const connectButton = document.getElementById("connectButton");
+        const getAccountButton = document.getElementById("getAccountButton");
+        let web3;
+
+        // Connect to Metamask on button click
+        connectButton.addEventListener("click", async () => {
+            if (window.ethereum) {
+                try {
+                    await window.ethereum.enable();
+                    web3 = new Web3(window.ethereum);
+                    console.log("Metamask is connected.");
+                } catch (error) {
+                    console.error(error);
+                }
+            } else {
+                console.error("Metamask is not installed.");
+            }
+        });
+
+        // Get the current account on button click
+        getAccountButton.addEventListener("click", async () => {
+            const accounts = await web3.eth.getAccounts();
+            console.log("Current account:", accounts[0]);
+        });
+    </script>
+</body>
+</html>
